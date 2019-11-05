@@ -30,7 +30,25 @@
 */
 
 //Code Here
+class Employee {
+  constructor( first_name, last_name, email, age ) {
+  this.first_name = first_name
+    this.last_name = last_name
+    this.email = email
+    this.age = age
+  }
+  makeWidget() {
+  // return this.first_name + this.last_name + ' Widget'
+    return `${this.first_name} ${this.last_name} Widget`
+  }
+}
 
+const newEmployee = new Employee("Dallin", "Anderson", "Dallin@DallinDallin.com", 25)
+const newEmployee1 = new Employee("Nate", "Roundy", "Dallin@DallinDallin.com", 30)
+console.log(newEmployee)
+console.log(newEmployee1)
+console.log(newEmployee.makeWidget())
+console.log(newEmployee1.makeWidget())
 
 ////////// PROBLEM 2 //////////
 
@@ -48,7 +66,26 @@
 */
 
 //Code Here
+// class Manager extends Employee {
 
+// }
+class Manager extends Employee {
+  constructor(first_name, last_name, email, age, reports = []) {
+    super(first_name, last_name, email, age)
+    this.reports = reports
+  }
+  hire (employee) {
+      this.reports.push(employee)
+  }
+  fire (index) {
+      this.reports.splice(index, 1)
+  }
+}
+const manager = new Manager("Dick", "Head", "Dhead@dicks.com", 2)
+console.log(manager)
+console.log(manager.makeWidget())
+console.log(manager.hire(newEmployee1))
+console.log(manager)
 
 ////////// PROBLEM 3 //////////
 
@@ -72,8 +109,41 @@
 */
 
 //Code Here
+class ProgressiveManager extends Manager {
+  constructor(first_name, last_name, email, age, reports = [], title = 'Not a manager', bonus = 0) {
+    super(first_name, last_name, email, age, reports = [])
+    
+    this.hire = function(employee){
+      this.reports.push(employee)
+      this.updateTitle()
+    };
+    this.fire = function (index){
+      this.reports.splice(index,1);
+      return this.bonus += 100;
+    };
+    this.title = title;
+    this.bonus = bonus;
+  
+  }
 
-
+  updateTitle () {
+    if (this.reports.length >= 1 && this.reports.length <= 3) {
+      this.title = 'Barely Manager'
+    }
+    if (this.reports.length >= 4 && this.reports.length <= 10) {
+      this.title = 'Mostly Manager'
+    }
+    if (this.reports.length >= 11 && this.reports.length <= 50) {
+      this.title = 'Manager'
+    }
+    if (this.reports.length >= 51 && this.reports.length <= 100) {
+      this.title = 'Manager Plus'
+    }
+    if (this.reports.length > 100) {
+      this.title = 'Bestest Manager'
+    }
+  }
+}
 
 ////////// PROBLEM 4 - Black Diamond //////////
 
